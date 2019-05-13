@@ -5,10 +5,6 @@ clc
 
 options.correct_artifact = 0;
 options.dt = [-5 15];
-
-currDir = pwd;
-addpath(currDir);
-
 %% Load Fluoresence data and determine **exact** framerate;
 % Get the necessary files and folders
 [fileL_flo, dirL_flo] = uigetfile('*.csv', ...
@@ -32,13 +28,11 @@ cd(dirL_flo);
 
 
 %%
-
 rawF_C = importdata(fileC_flo);
 rawF_C = rawF_C.data(2:end,:)';
 
 rawF_L = importdata(fileL_flo);
 rawF_L = rawF_L.data(2:end,:)';
-
 
 dffC = get_dff_from_raw(rawF_C);
 dffL = get_dff_from_raw(rawF_L);
@@ -56,6 +50,7 @@ load(fileC_mat);
 dataC = data;
 load(fileL_mat);
 dataL = data;
+
 %% Split into trials
 
 [trialsC, trials_zscoreC] = find_trialzscore(dataC, dffC, frametimeC, avgFRC, options);
@@ -105,13 +100,11 @@ end
 
 %% Plot
 for neuron = 1:nCells
-    figure;
-    for i = 1:10
-        plot([0.9 1.1], [preC{neuron}(1,i), postC{neuron}(1,i)],  'b');
-        plot([1.9 2.1], [preL{neuron}(1,i), postL{neuron}(1,i)],  'b');
-        hold on;
-
-    end
+for i = 1:10
+    plot([0.9 1.1], [preC{1}(1,i), postC{1}(1,i)],  'b');
+    plot([1.9 2.1], [preL{1}(1,i), postL{1}(1,i)],  'b');
+    hold on;
+    
 end
 %%
 
